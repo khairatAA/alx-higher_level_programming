@@ -1,0 +1,6 @@
+#!/bin/bash
+main_py="$PYFILE"
+python3 -m py_compile "$main_py"
+compiled_file=$(find "__pycache__" -name "${main_py%.py}*.pyc")
+mv "$compiled_file" "${main_py%.py}.pyc"
+rm -r "__pycache__"

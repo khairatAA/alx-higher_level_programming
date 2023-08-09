@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+output = ""
 for i in range(97, 123):
-    i = str(chr(i))
-    print(f"{i:s}", end="")
+    output = output + chr(i)
+print("{}".format(output), end="")

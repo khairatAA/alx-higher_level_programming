@@ -1,6 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 def print_matrix_integer(matrix=[[]]):
-    length = range(len(matrix))
-   # nested = range(len(matrix))
-    matrix = [[int(i) for i in length] for i in length]
-    print("{}".format(matrix))
+    for row in matrix:
+        for element in row:
+            print("{:d}".format(matrix))

@@ -1,7 +1,8 @@
 #!usr/bin/python3
 def multiple_returns(sentence):
     if len(sentence) == 0:
-        tuple_result = (0, None)
+        sentence = None
+        tuple_result = (0, sentence)
         return tuple_result
     else:
         count = len(sentence)

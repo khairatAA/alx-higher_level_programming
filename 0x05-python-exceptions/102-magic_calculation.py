@@ -11,4 +11,4 @@ for i in range(1, 3):
     else:
         result += b
     finally:
-        result += a + b
+        return result

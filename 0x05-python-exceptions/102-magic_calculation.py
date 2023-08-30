@@ -6,7 +6,7 @@ for i in range(1, 3):
         if i > a:
             raise Exception("Too far")
             result += a ** i / i
-    except:
+    except Exception:
         pass
     else:
         result += b

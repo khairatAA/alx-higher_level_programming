@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""103-magic_class.py"""
 import math
 
 
@@ -11,7 +12,7 @@ class MagicClass:
             _MagicClass__radius: the radius of the circle
         """
         self._MagicClass__radius = 0
-    if type(radius) is not int  or type(radius) is not float:
+    if type(radius) is not int or type(radius) is not float:
         raise TypeError("radius must be a number")
     self._MagicClass__radius = radius
 

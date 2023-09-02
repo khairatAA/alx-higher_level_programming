@@ -4,6 +4,7 @@ This module contains 2-matrix_divided.
 It divides all elements of a matrix
 """
 
+
 def matrix_divided(matrix, div):
     """This function divides all elements of a matrix.
     Args:
@@ -21,18 +22,25 @@ def matrix_divided(matrix, div):
     new_matrix = []
 
     if type(matrix) is not list or len(matrix) is 0:
-        raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
+        raise TypeError(
+                "matrix must be a matrix (list of lists) of integers/floats"
+                )
 
     row_size = len(matrix[0])
     for row in matrix:
         if type(row) is not list or len(row) is 0:
-            raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
+            raise TypeError(
+                "matrix must be a matrix (list of lists) of integers/floats"
+                )
 
         if len(row) != row_size:
             raise TypeError("Each row of the matrix must have the same size")
         for i in row:
             if type(i) is not int and type(i) is not float:
-                raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
+                raise TypeError(
+                    "matrix must be a matrix (list of lists) "
+                    "of integers/floats"
+                    )
 
     if type(div) is not int and type(div) is not float:
         raise TypeError("div must be a number")

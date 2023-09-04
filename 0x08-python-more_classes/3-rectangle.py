@@ -72,7 +72,7 @@ class Rectangle:
             return ""
         else:
             result = ""
-            for i  in range(self.__height):
+            for i in range(self.__height):
                 result = result + "#" * self.__width
 
                 if i < self.__height - 1:

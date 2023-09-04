@@ -1,0 +1,42 @@
+The ``5-text_indentation`` module
+======================
+
+Using ``text_indentation``
+------------------------
+
+This is a 5-text_indentation text file in reStructuredText format.  First import
+``text_indentation`` from the ``5-text_indentation`` module:
+
+        >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+``text_indentation(text)`` prints a text with 2 new lines after each of these
+characters: ., ? and :
+
+Now use it:
+
+	>>> text_indentation({'age': 123, 'car': 'Tesla'})
+	Traceback (most recent call last):
+		...
+	TypeError: text must be a string
+
+	>>> text_indentation(12345)
+	Traceback (most recent call last):
+		...
+	TypeError: text must be a string
+
+	>>> text_indentation(None)
+	Traceback (most recent call last):
+		...
+	TypeError: text must be a string
+
+	>>> text_indentation(False)
+	Traceback (most recent call last):
+		...
+	TypeError: text must be a string
+
+	>>> text_indentation("My name is khairat. and I own a car: Tesla?")
+	My name is khairat.
+	<BLANKLINE>
+	and I own a car:
+	<BLANKLINE>
+	Tesla?

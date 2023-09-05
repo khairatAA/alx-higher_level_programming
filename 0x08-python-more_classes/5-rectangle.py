@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""4-rectangle.py"""
+"""5-rectangle.py"""
 
 
 class Rectangle:
@@ -85,3 +85,8 @@ class Rectangle:
         to be able to recreate a new instance by using eval()
         """
         return f'Rectangle({self.__width}, {self.__height})'
+
+    def __del__(self):
+        """Print the message when an instance of Rectangle is deleted
+        """
+        print("Bye rectangle...")

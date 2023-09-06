@@ -31,9 +31,13 @@ def text_indentation(text):
 
     lines = text.split('\n')
 
-    for i, line in enumerate(lines):
+    count = 0
+
+    for line in lines:
         stripped_line = line.strip()
-        if stripped_line:
+        count += 1
+        if stripped_line and count < len(lines):
             print(stripped_line)
-            if i < len(lines) - 1:
-                print()
+            print()
+        else:
+            print(stripped_line, end="")

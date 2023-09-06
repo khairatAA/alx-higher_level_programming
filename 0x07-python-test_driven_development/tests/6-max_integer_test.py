@@ -39,3 +39,14 @@ class TestMaxInteger(unittest.TestCase):
         result = max_integer([0, 0, 0, 0, 0])
         self.assertEqual(result, 0)
 
+    def test_empty_list(self):
+        self.assertIsNone(max_integer([]))
+
+    def test_one_negative_numbers(self):
+        self.assertEqual(max_integer([-6]), -6)
+
+    def test_only_one_negative_numbers(self):
+        self.assertEqual(max_integer([-6, 1, 2]), 2)
+
+    def test_max_in_the_middle(self):
+        self.assertEqual(max_integer([1, 2, 5, 3, 4]), 5)

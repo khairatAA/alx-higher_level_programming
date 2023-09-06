@@ -9,7 +9,8 @@ class LockedClass:
     Args:
         first_name: the only instance attribute to be set
     Raises:
-        AttributeError: 'LockedClass' object has no attribute '{}'".format(name)
+        AttributeError: 'LockedClass' object has no
+        attribute '{}'".format(name)
     """
     def __setattr__(self, name, value):
         if name == "first_name":

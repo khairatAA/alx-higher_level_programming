@@ -21,22 +21,20 @@ def text_indentation(text):
     """
     if type(text) is not str or text is None:
         raise TypeError("text must be a string")
-    elif not text.strip():
+    if not text.strip():
         raise ValueError("input must not be an empty string")
-    else:
-        characters = ['.', '?', ':']
 
-        for char in characters:
-                text = text.replace(char + ' ', char + '\n')
+    characters = ['.', '?', ':']
 
-        lines = text.split('\n')
-        count = 0
+    for char in characters:
+        text = text.replace(char, char + '\n')
 
-        for line in lines:
-            stripped_line = line.strip()
-            count += 1
-            if stripped_line and count < len(lines):
-                print(stripped_line)
+    lines = text.split('\n')
+
+    for i, line in enumerate(lines):
+        stripped_line = line.strip()
+
+        if stripped_line:
+            print(stripped_line)
+            if i < len(lines) - 1:
                 print()
-            else:
-                print(stripped_line, end="")

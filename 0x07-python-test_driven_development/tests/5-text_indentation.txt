@@ -34,12 +34,12 @@ Now use it:
 		...
 	TypeError: text must be a string
 
-	>>> text_indentation("My name is khairat. and I own a car: Tesla?")
+	>>> text_indentation("My name is khairat. and I own a car: Tesla")
 	My name is khairat.
 	<BLANKLINE>
 	and I own a car:
 	<BLANKLINE>
-	Tesla?
+	Tesla
 
 	>>> text_indentation("")
 	Traceback (most recent call last):
@@ -56,16 +56,16 @@ Now use it:
 		...
 	ValueError: input must not be an empty string
 
-	>>> text_indentation("look up, it's raining: I'm back.")
+	>>> text_indentation("look up, it's raining: I'm back")
 	look up, it's raining:
 	<BLANKLINE>
-	I'm back.
+	I'm back
 
 	>>> text_indentation("apples, banana, cashew")
 	apples, banana, cashew
 
-	>>> text_indentation("apples, banana, cashew.")
-	apples, banana, cashew.
+	>>> text_indentation("apples, banana, cashew")
+	apples, banana, cashew
 
 	>>> text_indentation("   khairat   ")
 	khairat
@@ -80,20 +80,35 @@ Now use it:
 	t
 
 	>>> text_indentation("Lorem ipsum;;?.;; dalor signum")
-	Lorem ipsum;;?.;; dalor signum
+	Lorem ipsum;;?
+	<BLANKLINE>
+	.
+	<BLANKLINE>
+	;; dalor signum
 
-	>>> text_indentation("? : ......")
+	>>> text_indentation("? : .k")
 	?
 	<BLANKLINE>
 	:
 	<BLANKLINE>
-	......
+	.
+	<BLANKLINE>
+	k
 
-	>>> text_indentation("kh.:??? ????? :::::: .........")
-	kh.:???
+	>>> text_indentation("kh.:???m")
+	kh.
 	<BLANKLINE>
-	?????
+	:
 	<BLANKLINE>
-	::::::
+	?
 	<BLANKLINE>
-	.........
+	?
+	<BLANKLINE>
+	?
+	<BLANKLINE>
+	m
+
+	>>> text_indentation("Holberton.School")
+	Holberton.
+	<BLANKLINE>
+	School

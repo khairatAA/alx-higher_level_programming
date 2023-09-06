@@ -73,3 +73,16 @@ Addition of invalid type and an integer:
 	Traceback (most recent call last):
 		...
 	TypeError: b must be an integer
+
+	>>> add_integer(2.786, 7.90)
+	9
+
+	>>> add_integer(1e308, 1e308)
+	Traceback (most recent call last):
+		...
+	OverflowError: float overflow
+
+	>>> add_integer(-1e308, -1e308)
+	Traceback (most recent call last):
+		...
+	OverflowError: float overflow

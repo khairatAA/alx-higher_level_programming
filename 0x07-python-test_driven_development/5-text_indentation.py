@@ -27,13 +27,12 @@ def text_indentation(text):
     characters = ['.', '?', ':']
 
     for char in characters:
-        text = text.replace(char, char + '\n')
+        text = text.replace(char + ' ', char + '\n')
 
     lines = text.split('\n')
 
     for i, line in enumerate(lines):
         stripped_line = line.strip()
-
         if stripped_line:
             print(stripped_line)
             if i < len(lines) - 1:

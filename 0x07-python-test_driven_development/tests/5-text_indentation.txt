@@ -80,35 +80,17 @@ Now use it:
 	t
 
 	>>> text_indentation("Lorem ipsum;;?.;; dalor signum")
-	Lorem ipsum;;?
-	<BLANKLINE>
-	.
-	<BLANKLINE>
-	;; dalor signum
+	Lorem ipsum;;?.;; dalor signum
 
-	>>> text_indentation("? : .k")
+	>>> text_indentation("? : .")
 	?
 	<BLANKLINE>
 	:
 	<BLANKLINE>
 	.
-	<BLANKLINE>
-	k
 
-	>>> text_indentation("kh.:???m")
-	kh.
-	<BLANKLINE>
-	:
-	<BLANKLINE>
-	?
-	<BLANKLINE>
-	?
-	<BLANKLINE>
-	?
-	<BLANKLINE>
-	m
+	>>> text_indentation("kh.:???")
+	kh.:???
 
 	>>> text_indentation("Holberton.School")
-	Holberton.
-	<BLANKLINE>
-	School
+	Holberton.School

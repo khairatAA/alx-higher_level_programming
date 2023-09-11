@@ -17,6 +17,9 @@ class MyList(list):
         if not all(isinstance(x, int) for x in self):
             raise ValueError("Input must be a list of numbers.")
 
+        if None in self:
+            raise ValueError("Input must be a list of numbers.")
+
         if len(self) == 0:
             raise ValueError("Input must be a list of numbers.")
         else:

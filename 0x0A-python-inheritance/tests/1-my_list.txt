@@ -44,3 +44,9 @@ Now use it:
 	Traceback (most recent call last):
 		...
 	ValueError: Input must be a list of numbers.
+
+	>>> none = MyList('1')
+	>>> none.print_sorted()
+	Traceback (most recent call last):
+		...
+	ValueError: Input must be a list of numbers.

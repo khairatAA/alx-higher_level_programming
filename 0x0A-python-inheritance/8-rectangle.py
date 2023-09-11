@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""7-base_geometry module"""
+"""8-rectangle"""
 
 
 class BaseGeometry:
     """This is the  BaseGeometry class"""
+
     def area(self):
         """Public instance method -
         that raises an Exception with the message
@@ -39,3 +40,19 @@ class BaseGeometry:
 
         if value <= 0:
             raise ValueError("{} must be greater than 0".format(name))
+
+
+class Rectangle(BaseGeometry):
+    """class Rectangle that inherits from BaseGeometry"""
+
+    def __init__(self, width, height):
+        """The class constructor
+        Args:
+            width: width of the rectangle
+            height: height of the rectangle
+        """
+        self.integer_validator("width", width)
+        self.integer_validator("height", height)
+
+        self.__width = width
+        self.__height = height

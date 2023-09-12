@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """6-load_from_json_file module"""
 import json
 """import json module"""

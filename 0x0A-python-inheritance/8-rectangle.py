@@ -23,7 +23,7 @@ class BaseGeometry:
             TypeError: "{} must be an integer".format(name)"
             VlaueError: "{} must be greater than 0".format(name)"
         """
-        if type(name) is not str:
+        if not isinstance(name, str):
             raise TypeError("name must be a string")
 
         if name is None or name is bool:
@@ -32,7 +32,7 @@ class BaseGeometry:
         if len(name) == 0:
             raise TypeError("name must not be an empty string")
 
-        if type(value) is not int:
+        if not isinstance(value, int):
             raise TypeError("{} must be an integer".format(name))
 
         if value is None or value is bool:
@@ -51,8 +51,11 @@ class Rectangle(BaseGeometry):
             width: width of the rectangle
             height: height of the rectangle
         """
-        self.integer_validator("width", width)
-        self.integer_validator("height", height)
+        if type(width) is int:
+            self.integer_validator("width", width)
+
+        if type(height) is int:
+            self.integer_validator("height", height)
 
         self.__width = width
         self.__height = height

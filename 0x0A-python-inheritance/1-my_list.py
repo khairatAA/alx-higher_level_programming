@@ -20,8 +20,5 @@ class MyList(list):
         if None in self:
             raise ValueError("Input must be a list of numbers.")
 
-        if len(self) == 0:
-            raise ValueError("Input must be a list of numbers.")
-        else:
-            self = sorted(self)
-            print(self)
+        self = sorted(self)
+        print(self)

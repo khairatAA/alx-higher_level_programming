@@ -17,9 +17,7 @@ Now use it:
 
 	>>> empty_list = MyList([])
 	>>> empty_list.print_sorted()
-	Traceback (most recent call last):
-		...
-	ValueError: Input must be a list of numbers.
+	[]
 
 	>>> single_list = MyList([45])
 	>>> single_list.print_sorted()

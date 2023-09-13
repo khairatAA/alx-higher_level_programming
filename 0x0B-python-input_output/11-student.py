@@ -34,7 +34,5 @@ class Student:
         Args:
             json: json will always be a dictionary
         """
-        result = {}
-        for key in json:
-            result[key] = getattr(self, key)
-        return result
+        for key, value in json.items():
+            setattr(self, key, value)

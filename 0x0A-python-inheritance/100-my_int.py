@@ -4,17 +4,15 @@
 
 class MyInt(int):
     """class MyInt that inherits from int
-        Args:
-            value(int): the value passed by the user
     """
     def __eq__(self, other):
         """Special method __eq__"""
         if isinstance(other, MyInt):
-            return self.value != self.other
-        return True
+            return False
+        return super().__eq__(other)
 
     def __ne__(self, other):
         """Special method __ne__"""
         if isinstance(other, MyInt):
-            return self.value == self.other
-        return False
+            return True
+        return super().__ne__(other)

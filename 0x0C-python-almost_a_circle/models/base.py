@@ -10,6 +10,7 @@ class Base:
         """The constructor of the Base class
         Args:
             id: public instance attribute, holds the argument value
+            __nb_objects: increments as instances are created
         """
         if id is not None:
             self.id = id

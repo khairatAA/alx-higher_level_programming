@@ -15,11 +15,11 @@ class Rectangle(Base):
             y: y coordinates
             id: Call the super class with id
         """
+        super().__init__(id)
         self.width = width
         self.height = height
         self.x = x
         self.y = y
-        super().__init__(id)
 
     @property
     def width(self):
@@ -104,3 +104,9 @@ class Rectangle(Base):
             raise ValueError("y must be >= 0")
         else:
             self.__y = value
+
+    def area(self):
+        """
+        Public method that returns the area value of the Rectangle instance.
+        """
+        return self.__width * self.__height

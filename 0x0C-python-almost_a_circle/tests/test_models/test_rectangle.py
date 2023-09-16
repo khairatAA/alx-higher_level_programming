@@ -14,8 +14,17 @@ class TestBase(unittest.TestCase):
 
     def test_by_passing_hight_and_width(self):
         """Passing only heights and width"""
-        r1 = Rectangle(10, 2)
-        self.assertEqual(r1.id, 1)
+        r = Rectangle(10, 78)
+        self.assertEqual(r.id, 5)
+
+        r1 = Rectangle(10, 5)
+        self.assertEqual(r1.id, 6)
+
+        r2 = Rectangle(10, 4, 8, 0, 8)
+        self.assertEqual(r2.id, 8)
+
+        r3 = Rectangle(10, 4)
+        self.assertEqual(r3.id, 7)
 
     def test_by_passing_neg_hight_and_width(self):
         """Passing negative height value"""
@@ -39,6 +48,9 @@ class TestBase(unittest.TestCase):
         """Passing all arguments with id"""
         r3 = Rectangle(10, 2, 0, 0, 12)
         self.assertEqual(r3.id, 12)
+
+        rec = Rectangle(78, 70)
+        self.assertEqual(rec.id, 4)
 
     def test_by_passing_all_neg_arguments(self):
         """Passing all negative arguments with negative id"""
@@ -95,3 +107,22 @@ class TestBase(unittest.TestCase):
         """Testing None y type"""
         with self.assertRaises(TypeError):
             r4 = Rectangle(10, 2, 5, True)
+
+    def test_area(self):
+        """Test if 2 integers are passed"""
+        r1 = Rectangle(3, 2)
+        self.assertEqual(r1.area(), 6)
+
+        """when neative number is passed to width"""
+        with self.assertRaises(ValueError):
+            r2 = Rectangle(-3, 2)
+            r2.area()
+
+        """when negative number is passed to heigth"""
+        with self.assertRaises(ValueError):
+            r3 = Rectangle(6, -3)
+            r3.area()
+
+        """when argumnets are passed"""
+        r4 = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(r4.area(), 56)

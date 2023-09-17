@@ -4,7 +4,6 @@ import unittest
 from models.base import Base
 """Importing the base and rectangle modules"""
 
-
 class TestBase(unittest.TestCase):
     """Runs test for the Bases class"""
     def test_when_id_is_none(self):

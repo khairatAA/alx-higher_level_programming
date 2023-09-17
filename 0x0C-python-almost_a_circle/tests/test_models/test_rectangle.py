@@ -8,8 +8,14 @@ import io
 """Importing unittest, Base and Rectangle modules"""
 
 
-class TestBase(unittest.TestCase):
-    """Runs test for the Rectangle class"""
+class TestRectangle(unittest.TestCase):
+    """Tests the rectangle class"""
+    @classmethod
+    def setUpClass(cls):
+        """Reset the __nb_objects counter to 0 before running
+        any test methods in this class."""
+        Base._Base__nb_objects = 0
+
     def test_inheritance(self):
         """Check if Rectangle Class is a subclass of Base Class"""
         self.assertTrue(issubclass(Rectangle, Base))
@@ -114,7 +120,7 @@ class TestBase(unittest.TestCase):
         """Test if 2 integers are passed"""
         r1 = Rectangle(3, 2)
         self.assertEqual(r1.area(), 6)
-        self.assertEqual((r1.id), 31)
+        self.assertEqual((r1.id), 36)
 
         """when argumnets are passed"""
         r4 = Rectangle(10, 100, 0, 0, 12)
@@ -153,7 +159,8 @@ class TestBase(unittest.TestCase):
         """when all the arguments are passed"""
         r2 = Rectangle(10, 5, 2, 3, 22)
         expected_output = (
-            """##########\n##########\n##########\n##########\n##########\n"""
+            "\n\n\n  ##########\n  ##########\n  ##########\n  ##########\n"
+            "  ##########\n"
         )
         with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
             r2.display()
@@ -209,3 +216,38 @@ class TestBase(unittest.TestCase):
         with self.assertRaises(ValueError):
             r5 = Rectangle(0, 0, 0, 0, 0)
             str(r5)
+
+    def test_update_display_with_x_y_valid(self):
+        """when valid arguments are passed"""
+        r1 = Rectangle(2, 3, 2, 2)
+        expected_output = "\n\n  ##\n  ##\n  ##\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r1.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """when zero is passed to one of the coordinates(y)"""
+        r2 = Rectangle(3, 2, 1, 0)
+        expected_output = " ###\n ###\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r2.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """when zero is passed to one of the coordinates(x)"""
+        r3 = Rectangle(3, 2, 0, 1)
+        expected_output = "\n###\n###\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r3.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """when zero is passed to the coordinates(x & y)"""
+        r4 = Rectangle(3, 2, 0, 0)
+        expected_output = "###\n###\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r4.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+    def test_update_display_with_x_y_invalid(self):
+        """when zero is passed to all args(x & y)"""
+        with self.assertRaises(ValueError):
+            r5 = Rectangle(0, 0, 0, 0)
+            r5.display()

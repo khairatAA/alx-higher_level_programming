@@ -114,9 +114,12 @@ class Rectangle(Base):
     def display(self):
         """
         Prints in stdout the Rectangle instance with the character #
+        Also takes into account the the coordinates.
         """
-        for i in range(self.__height):
-            print('#' * self.__width)
+        for i in range(self.__y):
+            print()
+        for j in range(self.__height):
+            print(" " * self.__x + '#' * self.__width)
 
     def __str__(self):
         """This is the str special method"""

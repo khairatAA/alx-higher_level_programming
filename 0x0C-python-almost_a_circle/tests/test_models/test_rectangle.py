@@ -114,7 +114,7 @@ class TestBase(unittest.TestCase):
         """Test if 2 integers are passed"""
         r1 = Rectangle(3, 2)
         self.assertEqual(r1.area(), 6)
-        self.assertEqual((r1.id), 28)
+        self.assertEqual((r1.id), 31)
 
         """when argumnets are passed"""
         r4 = Rectangle(10, 100, 0, 0, 12)
@@ -186,3 +186,26 @@ class TestBase(unittest.TestCase):
         with self.assertRaises(ValueError):
             r6 = Rectangle(0, 8)
             r6.display()
+
+    def test_str_valid_method(self):
+        """when all valid args are passed"""
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
+
+        """when y is not passed"""
+        r2 = Rectangle(5, 5, 1)
+        self.assertEqual(str(r2), "[Rectangle] (28) 1/0 - 5/5")
+
+        """when x is not passed"""
+        r3 = Rectangle(5, 5, y=1)
+        self.assertEqual(str(r3), "[Rectangle] (29) 0/1 - 5/5")
+
+        """when height is not passed"""
+        r4 = Rectangle(5, 7)
+        self.assertEqual(str(r4), "[Rectangle] (30) 0/0 - 5/7")
+
+    def test_str_invalid_method(self):
+        """when width is not passed"""
+        with self.assertRaises(ValueError):
+            r5 = Rectangle(0, 0, 0, 0, 0)
+            str(r5)

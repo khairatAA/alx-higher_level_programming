@@ -3,6 +3,8 @@
 import unittest
 from models.base import Base
 from models.rectangle import Rectangle
+from unittest.mock import patch
+import io
 """Importing unittest, Base and Rectangle modules"""
 
 
@@ -15,16 +17,16 @@ class TestBase(unittest.TestCase):
     def test_by_passing_hight_and_width(self):
         """Passing only heights and width"""
         r = Rectangle(10, 78)
-        self.assertEqual(r.id, 5)
+        self.assertEqual(r.id, 2)
 
         r1 = Rectangle(10, 5)
-        self.assertEqual(r1.id, 6)
+        self.assertEqual(r1.id, 3)
 
         r2 = Rectangle(10, 4, 8, 0, 8)
         self.assertEqual(r2.id, 8)
 
         r3 = Rectangle(10, 4)
-        self.assertEqual(r3.id, 7)
+        self.assertEqual(r3.id, 4)
 
     def test_by_passing_neg_hight_and_width(self):
         """Passing negative height value"""
@@ -50,7 +52,7 @@ class TestBase(unittest.TestCase):
         self.assertEqual(r3.id, 12)
 
         rec = Rectangle(78, 70)
-        self.assertEqual(rec.id, 4)
+        self.assertEqual(rec.id, 1)
 
     def test_by_passing_all_neg_arguments(self):
         """Passing all negative arguments with negative id"""
@@ -108,11 +110,17 @@ class TestBase(unittest.TestCase):
         with self.assertRaises(TypeError):
             r4 = Rectangle(10, 2, 5, True)
 
-    def test_area(self):
+    def test_valid_area(self):
         """Test if 2 integers are passed"""
         r1 = Rectangle(3, 2)
         self.assertEqual(r1.area(), 6)
+        self.assertEqual((r1.id), 28)
 
+        """when argumnets are passed"""
+        r4 = Rectangle(10, 100, 0, 0, 12)
+        self.assertEqual(r4.area(), 1000)
+
+    def test_invalid_area(self):
         """when neative number is passed to width"""
         with self.assertRaises(ValueError):
             r2 = Rectangle(-3, 2)
@@ -123,6 +131,58 @@ class TestBase(unittest.TestCase):
             r3 = Rectangle(6, -3)
             r3.area()
 
-        """when argumnets are passed"""
-        r4 = Rectangle(8, 7, 0, 0, 12)
-        self.assertEqual(r4.area(), 56)
+        with self.assertRaises(ValueError):
+            r4 = Rectangle(6, 0)
+            r3.area()
+
+    def test_valid_display(self):
+        """when one is passed as width and height"""
+        rec = Rectangle(4, 2)
+        expected_output = "####\n####\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            rec.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """when 2 valid arguments are passed"""
+        r2 = Rectangle(1, 1)
+        expected_output = "#\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r2.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """when all the arguments are passed"""
+        r2 = Rectangle(10, 5, 2, 3, 22)
+        expected_output = (
+            """##########\n##########\n##########\n##########\n##########\n"""
+        )
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r2.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+        """Display a Square"""
+        r2 = Rectangle(4, 4)
+        expected_output = "####\n####\n####\n####\n"
+        with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+            r2.display()
+            self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+    def test_invalid_display(self):
+        """when an invalid argument is passed"""
+        with self.assertRaises(TypeError):
+            r3 = Rectangle("34", 1)
+            r3.display()
+
+        """when an invalid argument is passed to height"""
+        with self.assertRaises(TypeError):
+            r4 = Rectangle(2, (56, 99))
+            r4.display()
+
+        """when 0 is passed as both arguments"""
+        with self.assertRaises(ValueError):
+            r5 = Rectangle(0, 0)
+            r5.display()
+
+        """when 0 is passed as one argument"""
+        with self.assertRaises(ValueError):
+            r6 = Rectangle(0, 8)
+            r6.display()

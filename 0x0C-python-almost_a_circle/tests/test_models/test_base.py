@@ -4,8 +4,13 @@ import unittest
 from models.base import Base
 """Importing the base and rectangle modules"""
 
+
 class TestBase(unittest.TestCase):
     """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
     def test_when_id_is_none(self):
         """Test when id is None"""
         b1 = Base()
@@ -37,3 +42,8 @@ class TestBase(unittest.TestCase):
         """Test when 0 is passed"""
         b1 = Base(0)
         self.assertEqual(b1.id, 0)
+
+    def test_defualt(self):
+        """to check if the unitest is noot running twice"""
+        b = Base()
+        self.assertEqual(b.id, 1)

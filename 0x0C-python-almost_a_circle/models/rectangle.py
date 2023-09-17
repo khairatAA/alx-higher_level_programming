@@ -125,3 +125,15 @@ class Rectangle(Base):
         """This is the str special method"""
         return ("[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.__x,
                 self.__y, self.__width, self.__height))
+
+    def update(self, *args):
+        """Public method that assigns an argument to each attribute
+        Args:
+            attribute_order(tuple): holds the order of the updated attributes
+            args: arbituary positional arguments
+        """
+        attribute_order = ('id', 'width', 'height', 'x', 'y')
+
+        for i, arg in enumerate(args):
+            if i < len(attribute_order):
+                setattr(self, attribute_order[i], arg)

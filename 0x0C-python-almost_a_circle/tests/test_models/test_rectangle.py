@@ -8,31 +8,43 @@ import io
 """Importing unittest, Base and Rectangle modules"""
 
 
-class TestRectangle(unittest.TestCase):
+class TestRectangleIniheritance(unittest.TestCase):
     """Tests the rectangle class"""
-    @classmethod
-    def setUpClass(cls):
-        """Reset the __nb_objects counter to 0 before running
-        any test methods in this class."""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
         Base._Base__nb_objects = 0
 
     def test_inheritance(self):
         """Check if Rectangle Class is a subclass of Base Class"""
         self.assertTrue(issubclass(Rectangle, Base))
 
+
+class TestRectangleIdInitialization(unittest.TestCase):
+    """Test Rectangle Id Initialization"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
     def test_by_passing_hight_and_width(self):
         """Passing only heights and width"""
         r = Rectangle(10, 78)
-        self.assertEqual(r.id, 2)
+        self.assertEqual(r.id, 1)
 
         r1 = Rectangle(10, 5)
-        self.assertEqual(r1.id, 3)
+        self.assertEqual(r1.id, 2)
 
         r2 = Rectangle(10, 4, 8, 0, 8)
         self.assertEqual(r2.id, 8)
 
         r3 = Rectangle(10, 4)
-        self.assertEqual(r3.id, 4)
+        self.assertEqual(r3.id, 3)
+
+
+class TestRectangleInitialization(unittest.TestCase):
+    """Test Rectangle Initialization"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
 
     def test_by_passing_neg_hight_and_width(self):
         """Passing negative height value"""
@@ -116,11 +128,36 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(TypeError):
             r4 = Rectangle(10, 2, 5, True)
 
+    def test_init_with_valid_values(self):
+        """Test initializing Rectangle with valid values"""
+        r = Rectangle(10, 20, 3, 4, 5)
+        self.assertEqual(r.id, 5)
+        self.assertEqual(r.width, 10)
+        self.assertEqual(r.height, 20)
+        self.assertEqual(r.x, 3)
+        self.assertEqual(r.y, 4)
+
+    def test_init_with_default_values(self):
+        """Test initializing Rectangle with default values"""
+        r = Rectangle(1, 1)
+        self.assertEqual(r.id, 1)
+        self.assertEqual(r.width, 1)
+        self.assertEqual(r.height, 1)
+        self.assertEqual(r.x, 0)
+        self.assertEqual(r.y, 0)
+
+
+class TestRectangleArea(unittest.TestCase):
+    """Tests the area of the rectangle"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
     def test_valid_area(self):
         """Test if 2 integers are passed"""
         r1 = Rectangle(3, 2)
         self.assertEqual(r1.area(), 6)
-        self.assertEqual((r1.id), 36)
+        self.assertEqual((r1.id), 1)
 
         """when argumnets are passed"""
         r4 = Rectangle(10, 100, 0, 0, 12)
@@ -140,6 +177,17 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError):
             r4 = Rectangle(6, 0)
             r3.area()
+
+        with self.assertRaises(ValueError):
+            r5 = Rectangle(0, 0)
+            r5.area()
+
+
+class TestRectangleDisplay(unittest.TestCase):
+    """Handles the display of width and height using #"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
 
     def test_valid_display(self):
         """when one is passed as width and height"""
@@ -194,6 +242,13 @@ class TestRectangle(unittest.TestCase):
             r6 = Rectangle(0, 8)
             r6.display()
 
+
+class TestRectangle__str__(unittest.TestCase):
+    """Tests the __str__ special method"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
     def test_str_valid_method(self):
         """when all valid args are passed"""
         r1 = Rectangle(4, 6, 2, 1, 12)
@@ -201,21 +256,28 @@ class TestRectangle(unittest.TestCase):
 
         """when y is not passed"""
         r2 = Rectangle(5, 5, 1)
-        self.assertEqual(str(r2), "[Rectangle] (28) 1/0 - 5/5")
+        self.assertEqual(str(r2), "[Rectangle] (1) 1/0 - 5/5")
 
         """when x is not passed"""
         r3 = Rectangle(5, 5, y=1)
-        self.assertEqual(str(r3), "[Rectangle] (29) 0/1 - 5/5")
+        self.assertEqual(str(r3), "[Rectangle] (2) 0/1 - 5/5")
 
         """when height is not passed"""
         r4 = Rectangle(5, 7)
-        self.assertEqual(str(r4), "[Rectangle] (30) 0/0 - 5/7")
+        self.assertEqual(str(r4), "[Rectangle] (3) 0/0 - 5/7")
 
     def test_str_invalid_method(self):
         """when width is not passed"""
         with self.assertRaises(ValueError):
             r5 = Rectangle(0, 0, 0, 0, 0)
             str(r5)
+
+
+class TestRectangleUpdatedDisplay(unittest.TestCase):
+    """Test the updated display that handles x and y"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
 
     def test_update_display_with_x_y_valid(self):
         """when valid arguments are passed"""
@@ -251,3 +313,52 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError):
             r5 = Rectangle(0, 0, 0, 0)
             r5.display()
+
+
+class TestRectangleUpdateArgs(unittest.TestCase):
+    """Test Rectangle Update Args"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+    def test_update_args_valid(self):
+        """when all args are passed"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.update(10, 20, 30, 40, 50)
+        self.assertEqual(r.id, 10)
+        self.assertEqual(r.width, 20)
+        self.assertEqual(r.height, 30)
+        self.assertEqual(r.x, 40)
+        self.assertEqual(r.y, 50)
+
+    def test_update_partial(self):
+        """partial update"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.update(10, 20)
+        self.assertEqual(r.id, 10)
+        self.assertEqual(r.width, 20)
+        self.assertEqual(r.height, 2)
+        self.assertEqual(r.x, 3)
+        self.assertEqual(r.y, 4)
+
+    def test_updated_args_with_invalid_types(self):
+        r = Rectangle(1, 2, 3, 4, 5)
+        """when 0 is passed to the updated width and height"""
+        with self.assertRaises(ValueError):
+            r.update(10, 0, 0)
+
+        """when invalid type is passed to the updated width"""
+        with self.assertRaises(TypeError):
+            r.update(10, "invalid width", 45)
+
+        """when invalid type is passed to the updated height"""
+        with self.assertRaises(TypeError):
+            r.update(10, 4, "invalid height")
+
+        """when invalid type is passed to the updated x"""
+        with self.assertRaises(TypeError):
+            r.update(67, 56, 10, {'key': 'value'})
+
+        """when invalid type is passed to the updated y"""
+        with self.assertRaises(TypeError):
+            r.update(67, 56, 10, 6, {'key': 'value'})

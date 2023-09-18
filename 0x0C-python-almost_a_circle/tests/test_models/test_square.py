@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Unittest for Rectangle class"""
+"""Unittest for Square class"""
 import unittest
 from models.square import Square
 from models.rectangle import Rectangle
@@ -7,6 +7,7 @@ from models.base import Base
 from unittest.mock import patch
 import io
 """Importing unittest, Square and Rectangle modules"""
+
 
 class TestSquareIniheritance(unittest.TestCase):
     """Tests the square class"""
@@ -327,3 +328,56 @@ class TestSquare_kwargsandargs(unittest.TestCase):
         self.assertEqual(s.size, 40)
         self.assertEqual(s.x, 10)
         self.assertEqual(s.y, 10)
+
+
+class TestSquare_to_dictionary(unittest.TestCase):
+    """Tests the Square to_dictionary using valid args"""
+    def setUp(self):
+        """Reset the id attribute to 0"""
+        Base._Base__nb_objects = 0
+
+    def to_dictionary_valid_args(self):
+        """when valid arguments are passed"""
+        s1 = Square(10, 2, 9)
+        expected_dict = {
+                'id': 10,
+                'size': 2,
+                'x': 9,
+                'y': 0
+                }
+        self.assertEqual(r1.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_empty(self):
+        """Test to_dictionary method for an empty Rectangle"""
+        s = Square(1, 1)
+        expected_dict = {
+            'id': 1,
+            'size': 1,
+            'x': 1,
+            'y': 0
+            }
+        self.assertEqual(s.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_with_changes(self):
+        """Test to_dictionary method after modifying Rectangle attributes"""
+        s = Square(4, 5)
+        s.size = 6
+        expected_dict = {
+            'id': 1,
+            'size': 6,
+            'x': 5,
+            'y': 0
+        }
+        self.assertEqual(s.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_custom_id(self):
+        """Test to_dictionary method with a custom ID"""
+        s = Square(2, 4, 5)
+        s.id = 100
+        expected_dict = {
+            'id': 100,
+            'size': 2,
+            'x': 4,
+            'y': 5
+        }
+        self.assertEqual(s.to_dictionary(), expected_dict)

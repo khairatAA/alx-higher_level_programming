@@ -241,3 +241,89 @@ class TestSquareUpdateSize(unittest.TestCase):
         with self.assertRaises(TypeError):
             s = Square(None, 20, 30, 40)
             s.size
+
+
+class TestSquareUpdateArgs(unittest.TestCase):
+    """Test Square Update Args"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+    def test_update_args_valid(self):
+        """when all args are passed"""
+        s = Square(1, 2, 3, 4)
+        s.update(10, 20, 30, 40)
+        self.assertEqual(s.id, 10)
+        self.assertEqual(s.size, 20)
+        self.assertEqual(s.x, 30)
+        self.assertEqual(s.y, 40)
+
+    def test_update_partial(self):
+        """partial update"""
+        s = Square(1, 2, 3, 4)
+        s.update(10, 20)
+        self.assertEqual(s.id, 10)
+        self.assertEqual(s.size, 20)
+        self.assertEqual(s.x, 2)
+        self.assertEqual(s.y, 3)
+
+    def test_updated_args_with_invalid_types(self):
+        s = Square(1, 2, 3, 4)
+        """when 0 is passed to the updated width and height"""
+        with self.assertRaises(ValueError):
+            s.update(10, 0, 0)
+
+
+class TestSquare_kwargsandargs(unittest.TestCase):
+    """Tests the Square kwargs and args update"""
+    def setUp(self):
+        """Reset the id attribute to 0"""
+        Base._Base__nb_objects = 0
+
+    def test_when_kwargs_are_passed(self):
+        """if only **kwargs are passed"""
+        s = Square(10, 10, 10, 10)
+        s.update(id=60, size=20, x=40, y=50)
+        self.assertEqual(s.id, 60)
+        self.assertEqual(s.size, 20)
+        self.assertEqual(s.x, 40)
+        self.assertEqual(s.y, 50)
+
+    def test_invalid_kwargs_name(self):
+        """when an invalid key is passed"""
+        s = Square(1, 2, 4, 5)
+        with self.assertRaises(AttributeError):
+            s.update(invalid_attr=10)
+
+    def test_extra_kwargs_name(self):
+        """invalid key"""
+        s = Square(1, 3, 4, 5)
+        with self.assertRaises(AttributeError):
+            s.update(id=10, size=20, x=40, y=50, extra_attr=60)
+
+    def test_kwargs_skipped_when_args_exist(self):
+        """Check that attributes updated by *args have their new values"""
+        s = Square(1, 3, 4, 5)
+        s.update(10, 20, 40, 50, id=60, size=70,  x=90, y=100)
+        self.assertEqual(s.id, 10)
+        self.assertEqual(s.size, 20)
+        self.assertEqual(s.x, 40)
+        self.assertEqual(s.y, 50)
+
+    def test_empty_kwargs(self):
+        """when on args are passed"""
+        s = Square(2, 4, 5, 9)
+        s.update()
+        self.assertEqual(s.id, 9)
+        self.assertEqual(s.size, 2)
+        self.assertEqual(s.x, 4)
+        self.assertEqual(s.y, 5)
+
+    def test_some_args_are_given(self):
+        """when not args are passed to the update method"""
+        s = Square(10, 10, 10)
+        s.update(size=40)
+        self.assertEqual(s.id, 1)
+        self.assertEqual(s.size, 40)
+        self.assertEqual(s.x, 10)
+        self.assertEqual(s.y, 10)

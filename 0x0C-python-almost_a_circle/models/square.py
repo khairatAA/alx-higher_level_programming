@@ -38,6 +38,43 @@ class Square(Rectangle):
         self.width = value
         self.height = value
 
+    def update(self, *args, **kwargs):
+        """Public method that assigns an argument to each attribute
+        Args:
+            attribute_order[list]: holds the order of the updated attributes
+            args: arbituary positional arguments
+            kwargs: arbituary kwyworded arguments
+        Raises:
+            AttributeError: If an invalid attribute name is passed
+        """
+        attribute_order = ['id', 'size', 'x', 'y']
+
+        if args:
+            for i, arg in enumerate(args):
+                if i < len(attribute_order):
+                    setattr(self, attribute_order[i], arg)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if key not in attribute_order:
+                    raise AttributeError(
+                            "The key '{}' is not an attribute".format(key)
+                            )
+                if key == 'size':
+                    if value <= 0:
+                        raise ValueError("width must be > 0")
+                    self.width = value
+                    self.height = value
+                elif key == 'x':
+                    if value < 0:
+                        raise ValueError("x must be >= 0")
+                    self.x = value
+                elif key == 'y':
+                    if value < 0:
+                        raise ValueError("y must be >= 0")
+                    self.y = value
+                else:
+                    setattr(self, key, value)
+
     def __str__(self):
         """The String representation of the Square class"""
         return ("[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y,

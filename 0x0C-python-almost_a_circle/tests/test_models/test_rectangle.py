@@ -431,3 +431,61 @@ class TestRectangle_kwargsandargs(unittest.TestCase):
         self.assertEqual(r.height, 50)
         self.assertEqual(r.x, 10)
         self.assertEqual(r.y, 10)
+
+
+class TestRectangle_to_dictionary(unittest.TestCase):
+    """Tests the rectangle to_dictionary using valid args"""
+    def setUp(self):
+        """Reset the id attribute to 0"""
+        Base._Base__nb_objects = 0
+
+    def to_dictionary_valid_args(self):
+        """when valid arguments are passed"""
+        r1 = Rectangle(10, 2, 1, 9)
+        expected_dict = {
+                'id': 10,
+                'width': 2,
+                'height': 1,
+                'x': 9,
+                'y': 0
+                }
+        self.assertEqual(r1.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_empty(self):
+        """Test to_dictionary method for an empty Rectangle"""
+        r = Rectangle(1, 1)
+        expected_dict = {
+            'id': 1,
+            'width': 1,
+            'height': 1,
+            'x': 0,
+            'y': 0
+            }
+        self.assertEqual(r.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_with_changes(self):
+        """Test to_dictionary method after modifying Rectangle attributes"""
+        r = Rectangle(3, 4, 5)
+        r.width = 6
+        r.height = 7
+        expected_dict = {
+            'id': 1,
+            'width': 6,
+            'height': 7,
+            'x': 5,
+            'y': 0
+        }
+        self.assertEqual(r.to_dictionary(), expected_dict)
+
+    def test_to_dictionary_custom_id(self):
+        """Test to_dictionary method with a custom ID"""
+        r = Rectangle(2, 3, 4, 5)
+        r.id = 100
+        expected_dict = {
+            'id': 100,
+            'width': 2,
+            'height': 3,
+            'x': 4,
+            'y': 5
+        }
+        self.assertEqual(r.to_dictionary(), expected_dict)

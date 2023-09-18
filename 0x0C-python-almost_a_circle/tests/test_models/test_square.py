@@ -205,3 +205,39 @@ class TestSquareUpdatedDisplay(unittest.TestCase):
         with self.assertRaises(ValueError):
             s5 = Square(0, 0, 0, 0)
             s5.display()
+
+
+class TestSquareUpdateSize(unittest.TestCase):
+    """Test the updated display that handles x and y"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+    def test_update_size_with_valid_args(self):
+        """passing valid args to size"""
+        s1 = Square(5)
+        self.assertEqual(s1.size, 5)
+        s1.size = 10
+        self.assertEqual(str(s1), "[Square] (1) 0/0 - 10")
+
+        """when size is 1"""
+        s1 = Square(1)
+        self.assertEqual(s1.size, 1)
+        s1.size = 100
+        self.assertEqual(str(s1), "[Square] (2) 0/0 - 100")
+
+    def test_update_size_with_invalid_args(self):
+        """passing invalid args to size"""
+        with self.assertRaises(TypeError):
+            s = Square("10", 20, 30, 40)
+            s.size
+
+        """when True is passed to size"""
+        with self.assertRaises(TypeError):
+            s = Square(True, 20, 30, 40)
+            s.size
+
+        """when None is passed to size"""
+        with self.assertRaises(TypeError):
+            s = Square(None, 20, 30, 40)
+            s.size

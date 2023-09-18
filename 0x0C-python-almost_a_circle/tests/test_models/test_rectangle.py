@@ -362,3 +362,72 @@ class TestRectangleUpdateArgs(unittest.TestCase):
         """when invalid type is passed to the updated y"""
         with self.assertRaises(TypeError):
             r.update(67, 56, 10, 6, {'key': 'value'})
+
+
+class TestRectangle_kwargsandargs(unittest.TestCase):
+    """Tests the rectangle kwargs and args update"""
+    def setUp(self):
+        """Reset the id attribute to 0"""
+        Base._Base__nb_objects = 0
+
+    def test_if_args_is_called_first(self):
+        """args_take_precedence_over_kwargs"""
+        r = Rectangle(9, 21, 3, 4, 5)
+        r.update(10, width=40)
+        self.assertEqual(r.id, 10)
+        self.assertEqual(r.width, 9)
+        self.assertEqual(r.height, 21)
+        self.assertEqual(r.x, 3)
+        self.assertEqual(r.y, 4)
+
+    def test_when_kwargs_are_passed(self):
+        """if only **kwargs are passed"""
+        r = Rectangle(10, 10, 10, 10)
+        r.update(id=60, width=20, height=30, x=40, y=50)
+        self.assertEqual(r.id, 60)
+        self.assertEqual(r.width, 20)
+        self.assertEqual(r.height, 30)
+        self.assertEqual(r.x, 40)
+        self.assertEqual(r.y, 50)
+
+    def test_invalid_kwargs_name(self):
+        """when an invalid key is passed"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(AttributeError):
+            r.update(invalid_attr=10)
+
+    def test_extra_kwargs_name(self):
+        """invalid key"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        with self.assertRaises(AttributeError):
+            r.update(id=10, width=20, height=30, x=40, y=50, extra_attr=60)
+
+    def test_kwargs_skipped_when_args_exist(self):
+        """Check that attributes updated by *args have their new values"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.update(10, 20, 30, 40, 50, id=60, width=70, height=80, x=90, y=100)
+        self.assertEqual(r.id, 10)
+        self.assertEqual(r.width, 20)
+        self.assertEqual(r.height, 30)
+        self.assertEqual(r.x, 40)
+        self.assertEqual(r.y, 50)
+
+    def test_empty_kwargs(self):
+        """when on args are passed"""
+        r = Rectangle(2, 3, 4, 5, 9)
+        r.update()
+        self.assertEqual(r.id, 9)
+        self.assertEqual(r.width, 2)
+        self.assertEqual(r.height, 3)
+        self.assertEqual(r.x, 4)
+        self.assertEqual(r.y, 5)
+
+    def test_some_args_are_given(self):
+        """when not args are passed to the update method"""
+        r = Rectangle(10, 10, 10, 10)
+        r.update(width=40, height=50)
+        self.assertEqual(r.id, 1)
+        self.assertEqual(r.width, 40)
+        self.assertEqual(r.height, 50)
+        self.assertEqual(r.x, 10)
+        self.assertEqual(r.y, 10)

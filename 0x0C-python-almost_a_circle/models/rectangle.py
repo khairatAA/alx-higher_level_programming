@@ -126,14 +126,42 @@ class Rectangle(Base):
         return ("[Rectangle] ({}) {}/{} - {}/{}".format(self.id, self.__x,
                 self.__y, self.__width, self.__height))
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """Public method that assigns an argument to each attribute
         Args:
             attribute_order(tuple): holds the order of the updated attributes
             args: arbituary positional arguments
+            kwargs: arbituary kwyworded arguments
+        Raises:
+            AttributeError: If an invalid attribute name is passed
         """
         attribute_order = ('id', 'width', 'height', 'x', 'y')
 
-        for i, arg in enumerate(args):
-            if i < len(attribute_order):
-                setattr(self, attribute_order[i], arg)
+        if args:
+            for i, arg in enumerate(args):
+                if i < len(attribute_order):
+                    setattr(self, attribute_order[i], arg)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if key not in attribute_order:
+                    raise AttributeError(
+                            "The key '{}' is not an attribute".format(key)
+                            )
+                if key == 'width':
+                    if value <= 0:
+                        raise ValueError("width must be > 0")
+                    self.__width = value
+                elif key == 'height':
+                    if value <= 0:
+                        raise ValueError("height must be > 0")
+                    self.__height = value
+                elif key == 'x':
+                    if value < 0:
+                        raise ValueError("x must be >= 0")
+                    self.__x = value
+                elif key == 'y':
+                    if value < 0:
+                        raise ValueError("y must be >= 0")
+                    self.__y = value
+                else:
+                    setattr(self, key, value)

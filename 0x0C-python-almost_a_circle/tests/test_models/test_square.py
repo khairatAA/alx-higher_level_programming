@@ -520,3 +520,26 @@ class TestDictionary_to_Instance(unittest.TestCase):
         s1_dictionary = s1.to_dictionary()
         s2 = Square.create(**s1_dictionary)
         self.assertEqual(str(s1), "[Square] (8) 0/0 - 5")
+
+
+class TestLoadFromFile(unittest.TestCase):
+    """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+        # Create a test JSON file with example data
+        with open("Square.json", "w") as file:
+            file.write('[{"id": 1, "size": 10, "x": 2, "y": 8}]')
+
+    def test_load_from_file(self):
+        """Call the load_from_file method"""
+        squares = Square.load_from_file()
+
+        # Check that it returns the expected list of instances
+        self.assertEqual(len(squares), 1)
+        self.assertIsInstance(squares[0], Square)
+        self.assertEqual(squares[0].id, 1)
+        self.assertEqual(squares[0].size, 10)
+        self.assertEqual(squares[0].x, 2)
+        self.assertEqual(squares[0].y, 8)

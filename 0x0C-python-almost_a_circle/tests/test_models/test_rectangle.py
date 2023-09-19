@@ -595,3 +595,40 @@ class TestDictionaryToStr(unittest.TestCase):
         _dict = [{}]
         json_str = Rectangle.to_json_string(_dict)
         self.assertEqual(json_str, "[{}]")
+
+
+class TestDictionary_to_Instance(unittest.TestCase):
+    """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+    def test_dict_to_instance(self):
+        """test Dictionary to Instance"""
+        r1 = Rectangle(3, 5, 1)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r2), "[Rectangle] (1) 1/0 - 3/5")
+
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r2), "[Rectangle] (12) 2/1 - 4/6")
+
+        """when y is not passed"""
+        r2 = Rectangle(5, 5, 1)
+        r2_dictionary = r2.to_dictionary()
+        r1 = Rectangle.create(**r2_dictionary)
+        self.assertEqual(str(r1), "[Rectangle] (4) 1/0 - 5/5")
+
+        """when x is not passed"""
+        r1 = Rectangle(5, 5, y=1)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r1), "[Rectangle] (6) 0/1 - 5/5")
+
+        """when height is not passed"""
+        r1 = Rectangle(5, 7)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r1), "[Rectangle] (8) 0/0 - 5/7")

@@ -483,3 +483,40 @@ class TestDictionaryToStr(unittest.TestCase):
         _dict = [{}]
         json_str = Square.to_json_string(_dict)
         self.assertEqual(json_str, "[{}]")
+
+
+class TestDictionary_to_Instance(unittest.TestCase):
+    """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+    def test_dict_to_instance(self):
+        """test Dictionary to Instance"""
+        s1 = Square(3, 5, 1)
+        s1_dictionary = s1.to_dictionary()
+        s2 = Square.create(**s1_dictionary)
+        self.assertEqual(str(s2), "[Square] (1) 5/1 - 3")
+
+        s1 = Square(4, 2, 1, 12)
+        s1_dictionary = s1.to_dictionary()
+        s2 = Square.create(**s1_dictionary)
+        self.assertEqual(str(s2), "[Square] (12) 2/1 - 4")
+
+        """when y is not passed"""
+        s2 = Square(5, 1)
+        s2_dictionary = s2.to_dictionary()
+        s1 = Square.create(**s2_dictionary)
+        self.assertEqual(str(s1), "[Square] (4) 1/0 - 5")
+
+        """when x is not passed"""
+        s1 = Square(5, y=1)
+        s1_dictionary = s1.to_dictionary()
+        s2 = Square.create(**s1_dictionary)
+        self.assertEqual(str(s1), "[Square] (6) 0/1 - 5")
+
+        """when omly size is passed"""
+        s1 = Square(5)
+        s1_dictionary = s1.to_dictionary()
+        s2 = Square.create(**s1_dictionary)
+        self.assertEqual(str(s1), "[Square] (8) 0/0 - 5")

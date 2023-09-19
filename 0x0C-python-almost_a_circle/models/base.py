@@ -60,9 +60,22 @@ class Base:
         Args:
             json_string: is a string representing a list of dictionaries
         """
-        to_str = "[]"
+        to_str = []
         if json_string is None or len(json_string) == 0:
             return to_str
         else:
             to_str = json.loads(json_string)
             return to_str
+
+    @classmethod
+    def create(cls, **dictionary):
+        """Returns an instance with all attributes already set
+        Args:
+            cls: class instance
+            dictionary: arbituary keyworded argument, representing a dict
+        """
+        dummy_instance = cls(1, 1)
+
+        dummy_instance.update(**dictionary)
+
+        return dummy_instance

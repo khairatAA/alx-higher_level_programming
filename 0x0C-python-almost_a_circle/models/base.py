@@ -35,6 +35,11 @@ class Base:
 
     @classmethod
     def save_to_file(cls, list_objs):
+        """Writes the JSON string representation of list_objs to a file
+        Args:
+            cls: class instance
+            list_objs: is a list of instances who inherits of Base
+        """
         file_name = cls.__name__ + ".json"
         if list_objs is None:
             to_str = "[]"
@@ -48,3 +53,16 @@ class Base:
             written_str = file.write(to_str)
 
         return written_str
+
+    @staticmethod
+    def from_json_string(json_string):
+        """Returns the list of the JSON string representation json_string.
+        Args:
+            json_string: is a string representing a list of dictionaries
+        """
+        to_str = "[]"
+        if json_string is None or len(json_string) == 0:
+            return to_str
+        else:
+            to_str = json.loads(json_string)
+            return to_str

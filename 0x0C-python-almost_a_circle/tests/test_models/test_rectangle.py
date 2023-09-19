@@ -541,10 +541,57 @@ class Test_save_to_file_json_string(unittest.TestCase):
 
         with open("Rectangle.json", "r") as file:
             content = file.read()
-            expected_json = '[{"id": 1, "width": 5, "height": 4, "x": 3, "y": 2}]'
+            expected_json = (
+                    '[{"id": 1, "width": 5, "height": 4, "x": 3, "y": 2}]'
+                    )
             self.assertEqual(content, expected_json)
 
     def tearDown(self):
         """Clean up by removing any created JSON files after each test"""
         if os.path.exists("Rectangle.json"):
             os.remove("Rectangle.json")
+
+
+class TestDictionaryToStr(unittest.TestCase):
+    """Tests the dictionary to str using valid args"""
+    def setUp(self):
+        """Reset the id attribute to 0"""
+        Base._Base__nb_objects = 0
+
+    def dictionary_to_str_valid_args(self):
+        """when valid arguments are passed"""
+        _dict = [{
+            'id': 10,
+            'width': 2,
+            'height': 1,
+            'x': 9,
+            'y': 0
+            }]
+        json_str = Rectangle.to_json_string(_dict)
+        expected_dict = '[{"id": 10, "width": 2, "height": 1, "x": 9, "y": 0}]'
+        self.assertEqual(json_str, expected_dict)
+
+    def test_dictionary_to_str_empty(self):
+        """Test dictionary to str method for an empty Rectangle"""
+        _dict = [{
+            'id': 1,
+            'width': 1,
+            'height': 1,
+            'x': 0,
+            'y': 0
+            }]
+        json_str = Rectangle.to_json_string(_dict)
+        expected_dict = '[{"id": 1, "width": 1, "height": 1, "x": 0, "y": 0}]'
+        self.assertEqual(json_str, expected_dict)
+
+    def test_str_to_dictionary_None(self):
+        """when None is passed"""
+        _dict = None
+        json_str = Rectangle.to_json_string(_dict)
+        self.assertEqual(json_str, "[]")
+
+    def test_str_to_dictionary_empty(self):
+        """when None is passed"""
+        _dict = [{}]
+        json_str = Rectangle.to_json_string(_dict)
+        self.assertEqual(json_str, "[{}]")

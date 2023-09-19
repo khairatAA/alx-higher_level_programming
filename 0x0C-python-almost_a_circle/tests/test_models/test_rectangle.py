@@ -632,3 +632,27 @@ class TestDictionary_to_Instance(unittest.TestCase):
         r1_dictionary = r1.to_dictionary()
         r2 = Rectangle.create(**r1_dictionary)
         self.assertEqual(str(r1), "[Rectangle] (8) 0/0 - 5/7")
+
+
+class TestLoadFromFile(unittest.TestCase):
+    """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+        # Create a test JSON file with example data
+        with open("Rectangle.json", "w") as file:
+            file.write('[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]')
+
+    def test_load_from_file(self):
+        """Call the load_from_file method"""
+        rectangles = Rectangle.load_from_file()
+
+        # Check that it returns the expected list of instances
+        self.assertEqual(len(rectangles), 1)
+        self.assertIsInstance(rectangles[0], Rectangle)
+        self.assertEqual(rectangles[0].id, 1)
+        self.assertEqual(rectangles[0].width, 10)
+        self.assertEqual(rectangles[0].height, 7)
+        self.assertEqual(rectangles[0].x, 2)
+        self.assertEqual(rectangles[0].y, 8)

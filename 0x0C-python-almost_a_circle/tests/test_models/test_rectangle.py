@@ -5,6 +5,7 @@ from models.base import Base
 from models.rectangle import Rectangle
 from unittest.mock import patch
 import io
+import os
 """Importing unittest, Base and Rectangle modules"""
 
 
@@ -489,3 +490,61 @@ class TestRectangle_to_dictionary(unittest.TestCase):
             'y': 5
         }
         self.assertEqual(r.to_dictionary(), expected_dict)
+
+
+class Test_save_to_file_json_string(unittest.TestCase):
+    """Runs test for the Bases class"""
+    def setUp(self):
+        """Reset the id attribute to 0 for Base class"""
+        Base._Base__nb_objects = 0
+
+        """Clean up any existing JSON files before each test"""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+
+    def test_save_to_file(self):
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        Rectangle.save_to_file([r1, r2])
+
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+            expected_json = (
+                '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}, '
+                '{"id": 2, "width": 2, "height": 4, "x": 0, "y": 0}]'
+            )
+            self.assertEqual(content, expected_json)
+
+    def test_empty_list_save_to_file(self):
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+            self.assertEqual(content, "[]")
+
+    def test_None_save_to_file(self):
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+            self.assertEqual(content, "[]")
+
+    def test_overwrite_existing_file(self):
+        """Test that the file is overwritten if it already exists"""
+        r = Rectangle(1, 2, 3, 4, 5)
+        Rectangle.save_to_file([r])
+
+        # Create a file with some content
+        with open("Rectangle.json", "w") as file:
+            file.write("existing content")
+
+        r2 = Rectangle(5, 4, 3, 2, 1)
+        Rectangle.save_to_file([r2])
+
+        with open("Rectangle.json", "r") as file:
+            content = file.read()
+            expected_json = '[{"id": 1, "width": 5, "height": 4, "x": 3, "y": 2}]'
+            self.assertEqual(content, expected_json)
+
+    def tearDown(self):
+        """Clean up by removing any created JSON files after each test"""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")

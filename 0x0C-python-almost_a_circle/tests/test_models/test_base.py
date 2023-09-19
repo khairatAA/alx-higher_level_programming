@@ -72,7 +72,7 @@ class Testto_json_string(unittest.TestCase):
             }]
         result = Base.to_json_string(d)
         expected_result = (
-                '[{"id": 100, "width": 2, "height": 3,"x": 4, "y": 5}]'
+                '[{"id": 100, "width": 2, "height": 3, "x": 4, "y": 5}]'
                 )
         self.assertEqual(result, expected_result)
 

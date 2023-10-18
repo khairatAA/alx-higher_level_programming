@@ -2,7 +2,6 @@
 """base module"""
 import json
 import os
-import csv
 """import json module"""
 
 
@@ -97,47 +96,6 @@ class Base:
             for _dict in dicts:
                 instance = cls.create(**_dict)
                 _list.append(instance)
-
-            return _list
-        else:
-            return []
-
-    @classmethod
-    def save_to_file_csv(cls, list_objs):
-        """Writes the CSV representation of list_objs to a file
-        Args:
-            cls: class instance
-            list_objs: is a list of instances who inherits of Base
-        """
-        file_name = cls.__name__ + ".csv"
-        if list_objs is None:
-            return
-        
-        with open(file_name, 'w') as file:
-            writer = csv.writer(file)
-
-            if list_objs:
-                header = list_objs[0].to_dictionary().keys()
-                writer.writerow(header)
-
-                for row in list_objs:
-                    values = row.to_dictionary().values()
-                    writer.writerow(values)
-
-    @classmethod
-    def load_from_file_csv(cls):
-        """Returns a list of instances"""
-        file_name = cls.__name__ + ".csv"
-        _list = []
-        if os.path.exists(file_name):
-            with open(file_name, 'r') as file:
-                reader = csv.reader(file)
-                data = next(reader)
-            
-                for row in reader:
-                    row_dict = dict(zip(data, row))
-                    instance = cls.create(**row_dict)
-                    _list.append(instance)
 
             return _list
         else:

@@ -11,6 +11,6 @@ if (!command) {
   if (isNaN(value)) {
     console.log('Not a number');
   } else {
-    console.log(value);
+    console.log('My number: ' + value);
   }
 }

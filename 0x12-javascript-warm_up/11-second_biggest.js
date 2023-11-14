@@ -2,7 +2,7 @@
 
 // A script that searches the second biggest integer in the list of arguments
 
-const entries = process.argv.slice(2);
+const entries = process.argv.slice(2).map(Number);
 let max = 0;
 
 // entries.forEach((val, index) => {
@@ -16,11 +16,6 @@ if (entries.length === 0) {
   max = 0;
   console.log(max);
 } else {
-  for (let i = 0; i < entries.length; i++) {
-    const num1 = parseInt(entries[i]);
-    if (num1 > max) {
-      max = num1;
-    }
-  }
-  console.log(max);
+  entries.sort((a, b) => b - a);
+  console.log(entries[1]);
 }

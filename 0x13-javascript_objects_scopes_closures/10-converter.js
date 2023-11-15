@@ -4,17 +4,6 @@
 
 exports.converter = function (base) {
   return function convert (number) {
-    let str = '';
-
-    if (number === 0) {
-      return '0';
-    }
-
-    while (number > 0) {
-      str = number % base + str;
-      number = Math.floor(number / base);
-    }
-
-    return str;
+    return (number.toString(base));
   };
 };

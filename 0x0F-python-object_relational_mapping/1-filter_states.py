@@ -4,9 +4,9 @@ import MySQLdb
 import sys
 
 if __name__ == "__main__":
-    '''lists all states with a name starting with N 
+    '''lists all states with a name starting with N
     (upper N) from the database hbtn_0e_0_usa'''
-    db = MySQLdb.connect(
+    connection = MySQLdb.connect(
         host='localhost',
         user=sys.argv[1],
         passwd=sys.argv[2],
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
 
-    cur = db.cursor()
+    cur = connection.cursor()
 
     cur.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
     state_col = cur.fetchall()
@@ -23,4 +23,4 @@ if __name__ == "__main__":
         print("{}".format(row))
 
     cur.close()
-    db.close()
+    connection.close()

@@ -6,6 +6,9 @@ import sys
 
 if __name__ == "__main__":
     ''' lists all cities from the database hbtn_0e_4_usa'''
+    if len(sys.argv) != 5:
+        sys.exit(1)
+
     connection = MySQLdb.connect(
         host='localhost',
         user=sys.argv[1],

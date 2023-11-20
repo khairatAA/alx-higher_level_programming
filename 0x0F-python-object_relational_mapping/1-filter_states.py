@@ -16,9 +16,10 @@ if __name__ == "__main__":
 
     cur = connection.cursor()
 
-    cur.execute("SELECT * FROM states WHERE name LIKE BINARY'{}' "
-        "ORDER BY id ASC".format('N%')
-        )
+    cur.execute(
+            "SELECT * FROM states WHERE name LIKE BINARY'{}' "
+            "ORDER BY id ASC".format('N%')
+            )
     state_col = cur.fetchall()
 
     for row in state_col:

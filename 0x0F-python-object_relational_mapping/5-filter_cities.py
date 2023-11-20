@@ -36,7 +36,7 @@ if __name__ == "__main__":
     for i, city in enumerate(cities):
         print("{}".format(city[0]), end="")
         if i < len(cities) - 1:
-            print(',', end="")
+            print(', ', end="")
     print('\n', end="")
 
     cur.close()

@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     if result:
         print("{}: {}".format(result.id, result.name))
-    else:
+    elif  len(result) == 0:
         print("Nothing\n")
 
     Base.metadata.create_all(engine)

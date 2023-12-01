@@ -11,5 +11,6 @@ if __name__ == "__main__":
 
     if response.status_code >= 400:
         print("Error code: {}".format(response.status_code))
+        sys.exit(1)
 
-    print(response.text)
+    print("{}".format(response.text))

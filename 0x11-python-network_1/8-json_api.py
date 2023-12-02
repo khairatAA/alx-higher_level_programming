@@ -5,15 +5,23 @@ import sys
 
 
 if __name__ == "__main__":
+    """Python script that takes in a letter and
+    sends a POST request to http://0.0.0.0:5000/search_user
+    with the letter as a parameter.
+    """
+
     url = "http://0.0.0.0:5000/search_user"
+
     letter = sys.argv[1]
 
-    if letter = "":
-        data = {'q': ""}
-    else:
-        data = {'q': letter}
+    if len(letter) == 0:
+        letter = ""
+    elif len(letter) == 1:
+        letter = sys.argv[1]
 
-    resp = requests.get(url)
+    data = {'q': letter}
+
+    resp = requests.post(url, data=data)
 
     try:
         to_dict = resp.json()

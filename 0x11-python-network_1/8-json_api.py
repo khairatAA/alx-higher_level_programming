@@ -15,9 +15,12 @@ if __name__ == "__main__":
     if len(sys.argv[1]) >= 1:
         letter = sys.argv[1]
     else:
-        letter = ""
+        letter = None
 
-    data = {'q': letter}
+    if letter is not None:
+        data = {'q': letter}
+    else:
+        data = {}
 
     try:
         resp = requests.post(url, data=data)

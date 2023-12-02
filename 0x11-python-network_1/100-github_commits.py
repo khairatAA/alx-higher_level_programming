@@ -22,8 +22,8 @@ if __name__ == "__main__":
 
     if response.status_code == 200:
         json = response.json()[:10]
-        for commit in commits:
+        for i in json:
             print("{}: {}".format(
-                json["sha"],
-                json["commit"]["author"]["name"]
+                json[i].get("sha"),
+                json[i].get("commit").get("author").get("name")
                 ))

@@ -19,11 +19,13 @@ if __name__ == "__main__":
             )
 
     response = requests.get(url)
+    json = response.json()
 
-    if response.status_code == 200:
-        json = response.json()[:10]
-        for i in json:
+    try:
+        for i in range(10):
             print("{}: {}".format(
                 json[i].get("sha"),
                 json[i].get("commit").get("author").get("name")
                 ))
+    except IndexError:
+        pass

@@ -12,23 +12,21 @@ if __name__ == "__main__":
 
     url = "http://0.0.0.0:5000/search_user"
 
-    letter = sys.argv[1]
-
-    if len(letter) == 0:
-        letter = ""
-    elif len(letter) == 1:
+    if len(sys.argv[1]) >= 1:
         letter = sys.argv[1]
+    else:
+        letter = ""
 
     data = {'q': letter}
 
-    resp = requests.post(url, data=data)
-
     try:
+        resp = requests.post(url, data=data)
         to_dict = resp.json()
 
-        if to_dict == {}:
-            print("No result")
-        else:
+        if to_dict:
             print("[{}] {}".format(to_dict["id"], to_dict["name"]))
+        else:
+            print("No result")
+
     except ValueError:
         print("Not a valid JSON")

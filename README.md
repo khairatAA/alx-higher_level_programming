@@ -1,3 +1,8 @@
-# HIGH LEVEL PROGRAMING
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=python,nodejs,javascript,html,css" />
+  </a>
+</p>
+<h1 align="center">HIGH LEVEL PROGRAMMING</h1>
 
-This repository contains programs written in high level programming languages such as Python.
+This repository contains directories to solutions of high level programming tasks from ALX.

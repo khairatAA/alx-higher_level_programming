@@ -14,15 +14,15 @@ request.get(url, function (error, response, body) {
 
   if (response.statusCode === 200) {
     const responseData = JSON.parse(body);
-    const characterUrl = "https://swapi-api.alx-tools.com/api/people/18/";
+    const characterUrl = 'https://swapi-api.alx-tools.com/api/people/18/';
     let count = 0;
 
     if (responseData.results) {
       for (let i = 0; i < responseData.results.length; i++) {
-	const characters = responseData.results[i].characters;
+        const characters = responseData.results[i].characters;
         if (characters.includes(characterUrl)) {
           count++;
-	}
+        }
       }
     }
     console.log(count);

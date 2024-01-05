@@ -5,7 +5,10 @@
 const fs = require('fs');
 const processArgv = require('process').argv;
 
-fs.readFile(processArgv[2], 'utf-8', (err, inputD) => {
-  if (err);
-  console.error(err);
+fs.readFile(processArgv[2], 'utf-8', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(data);
 });

@@ -2,5 +2,5 @@
 // when the user clicks on DIV#update_header
 
 $('#update_header').on('click', function () {
-    $('header').replaceWith('New Header!!!')
-  });
+  $('header').replaceWith('New Header!!!');
+});
